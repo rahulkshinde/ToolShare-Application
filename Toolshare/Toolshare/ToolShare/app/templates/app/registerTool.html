@@ -1,0 +1,203 @@
+{% extends "app/layout.html" %}
+
+
+{% load widget_tweaks %}
+{% block content%}
+<style>
+.onoffswitch {
+    position: relative; width: 90px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 56px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+
+
+</style>
+
+<br />
+<br />
+<form class="form-horizontal" role="form" method="post" action="registerTool.html" autocomplete="on" name="myForm" enctype="multipart/form-data">{% csrf_token %}
+            {% if form.errors %}
+                    <div class="alert alert-danger alert-error">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    test
+                    <strong>Error!</strong> A problem has been occurred while submitting your data.
+                        Please correct the below fields
+                            {% for field in form %} 
+			                    {% if field.errors %}
+			                        <li>{{ field.label }}:{{ field.errors|striptags }}</li>
+			                    {% endif %}
+		                    {% endfor %}
+                    </div>
+             {% endif %}
+        
+<div class="row" id="reservationdiv">
+                            <div class="col-sm-12" style="padding:0px">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="background-color:white">
+                                        <h4 style="text-align:center;font-family:'Times New Roman'"><span>Tool Registration Form</span></h4>
+                                    </div>
+<!-- Form Group -->
+		                            <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <table class="table table-responsive" style="background-color:white;border-color:white">
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right">Name:</p></td>
+                                                <td style="border:0px">{{form.Toolname}}</td>
+                                                <td style="border:0px"><p style="text-align:right">Uniqueness:</p></td>
+                                                <td style="border:0px"> {{form.UniqueAttribute}}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right">Category:</p></td>
+                                                <td style="border:0px">{{form.Category}}</td>
+                                                <td rowspan="3" style="border:0px"><p style="text-align:right">Description:</p></td>
+                                                <td rowspan="3" style="border:0px">{{form.Description}}</td>
+                                            </tr>
+
+                                           
+                                            <tr>
+
+                                                <td style="border:0px"><p style="text-align:right">Availability:</p></td>
+                                                <td style="border:0px">
+                                                    <div class="onoffswitch">
+                                                        <input type="checkbox" name="availabilityValue" class="onoffswitch-checkbox"  id="myonoffswitch" checked="checked" onchange="checkvalue()">
+                                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                                            <span class="onoffswitch-inner"></span>
+                                                            <span class="onoffswitch-switch" ></span>
+                                                        </label>
+
+                                                    </div>
+                                                     <input type="hidden" id="availability" name="availability" value="true">
+                                                </td> 
+                                            </tr>
+                                               <tr>
+                                                <td style="border:0px"><p style="text-align:right">Select a file:</p></td>
+                                                <td style="border:0px">{{form.stuff_image}}</td> 
+                                            </tr>                                    
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right">Sharing Location:</p></td>
+                                                <td style="border:0px">
+                                                    <select id="sharinglocationchoices" style="width:130px" onchange="sharinglocationf()" name="pickuparrangement">
+                                                        <option value="Home">Home</option>
+                                                        <option value="Shed">Shed</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                               </td>
+                                               <td style="border:0px"></td>
+                                               <td style="border:0px">     
+                                                   <select id="sharezonesheds" style="display:none;width:130px" name="shed_id">
+                                                        {% for shed in sheds %}
+                                                                <option value="{{shed.id}}">{{shed.Name}}</option>
+                                                        {% endfor %}
+                                                   </select>
+                                                   <div id="otheraddress"style="display:none;color:black; font-size:12px; font-family:cursive;margin:5px">{{form.address1}}<br /><br />{{form.address2}}</div>
+                                               </td>
+                                               
+                                            </tr>
+
+ 
+                                                                                       
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right"></p></td>
+                                                <td style="border:0px;width:50px">
+                                                <table>
+                                                    <tr>
+                                                        <td style="border:0px">
+                                                             <button type="submit" class="btn btn-black"   style="width:100px; display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;" onclick="checkvalue()">     Save      </button> 
+                                                        </td>
+                                                        <td style="border:0px">
+                                                             <button type="reset" class="btn btn-grey"  style="width:100px;display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;">   Cancel       </button> 
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </tr>
+
+                                        </table>
+                              
+                                    </div>	
+                                  
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>	
+</form>
+    
+        <br />
+        <br />
+        <br />
+        <br />		
+		<!-- Login Ends -->
+{% endblock %}
+{%block scripts%}	
+<script>
+    function sharinglocationf()
+    {
+        
+        var selectedvalue = document.getElementById('sharinglocationchoices').value.toString();
+        
+        if (selectedvalue == 'Shed')
+        {
+            document.getElementById('sharezonesheds').style.display = '';
+            document.getElementById('otheraddress').style.display = 'none';
+        }
+        else if (selectedvalue == 'Other') {
+            document.getElementById('sharezonesheds').style.display = 'none';
+            document.getElementById('otheraddress').style.display = '';
+
+        }
+        else
+        {
+            document.getElementById('sharezonesheds').style.display = 'none';
+            document.getElementById('otheraddress').style.display = 'none';
+        }
+    }
+    function checkvalue()
+    {
+        document.getElementById("availability").value = document.getElementById("myonoffswitch").checked.toString();
+    }
+</script>
+{%endblock%}

@@ -1,0 +1,65 @@
+
+
+{% extends "app/layout.html" %}
+{% load staticfiles %}
+{% block content %}
+
+
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Tools statistics</h4>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                      <table class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                <thead>
+                                                    <tr>
+                                                         <th width="60">image</th>
+											             <th>Tool Name</th>
+											             <th>Registration Date-Time</th>
+                                                         <th>Use Count</th>
+ 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>  
+                                                 {%if tools%} 
+                                                    {%for tool in tools%}
+                                                        <tr style="font-size:larger">
+                                                            <td>
+                                                            {%if tool.stuff_image%}
+                                                                <img class="img-responsive img-rounded" src="../static/app/{{tool.stuff_image}}" alt="" height="30" width="30">
+                                                             {%else%}
+                                                                <img class="img-responsive img-rounded" src="http://placehold.it/800x500"  alt="" height="30" width="30">
+                                                            {%endif%}
+                                                            </td>
+                                                            <td style="padding:2pt;"><a href="tooldetails/{{tool.id}}"><span class="blue">{{tool.name}}</span></a></td>
+                                                            <td style="padding:2pt;">{{tool.registrationDate|date:"d-M-Y H:m:s"}}</td>
+                                                            <!--<td style="padding:2pt;">tool.lastBorrowDate|date:"d-M-Y"</td>-->
+                                                            <td style="padding:2pt;">{{tool.useCount}}</td>
+                                                        </tr>
+                                                    {%endfor%}
+                                                 {%endif%}                                               
+                                                </tbody>
+                      </table>
+                </div>
+            <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+{% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function () {
+        var oTable = $('#dataTables-example1').dataTable();
+        oTable.fnSort([[3, 'desc']]);
+    });
+</script>
+{% endblock %}

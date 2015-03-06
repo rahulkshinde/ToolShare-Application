@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>ToolShare</Name>
+    <RootNamespace>ToolShare</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>85f5a746-9e67-40fc-a510-f989f838745d</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app\forms.py" />
+    <Compile Include="app\models\Profile.py" />
+    <Compile Include="app\models\Reservations.py" />
+    <Compile Include="app\models\Sharezone.py" />
+    <Compile Include="app\models\Shed.py" />
+    <Compile Include="app\models\Requests.py" />
+    <Compile Include="app\models\Tools.py" />
+    <Compile Include="app\models\__init__.py" />
+    <Compile Include="app\StaticData.py" />
+    <Compile Include="app\tests.py" />
+    <Compile Include="app\views\shedViews.py" />
+    <Compile Include="app\views\siteViews.py" />
+    <Compile Include="app\views\borrowViews.py" />
+    <Compile Include="app\views\toolViews.py" />
+    <Compile Include="app\views\userViews.py" />
+    <Compile Include="app\views\__init__.py" />
+    <Compile Include="app\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="ToolShare\__init__.py" />
+    <Compile Include="ToolShare\settings.py" />
+    <Compile Include="ToolShare\urls.py" />
+    <Compile Include="ToolShare\wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\" />
+    <Folder Include="app\models\" />
+    <Folder Include="app\static\" />
+    <Folder Include="app\static\app\" />
+    <Folder Include="app\static\app\content\" />
+    <Folder Include="app\static\app\fonts\" />
+    <Folder Include="app\static\app\scripts\" />
+    <Folder Include="app\templates\" />
+    <Folder Include="app\templates\app\" />
+    <Folder Include="app\views\" />
+    <Folder Include="ToolShare\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\static\app\content\animate.min.css" />
+    <Content Include="app\static\app\content\bootstrap-table.css" />
+    <Content Include="app\static\app\content\bulletin.css" />
+    <Content Include="app\static\app\content\custom.css" />
+    <Content Include="app\static\app\content\dataTables.bootstrap.css" />
+    <Content Include="app\static\app\content\default.min.css" />
+    <Content Include="app\static\app\content\docs.css" />
+    <Content Include="app\static\app\content\font-awesome.min.css" />
+    <Content Include="app\static\app\content\layers067.css" />
+    <Content Include="app\static\app\content\magnific-popup.css" />
+    <Content Include="app\static\app\content\metisMenu.css" />
+    <Content Include="app\static\app\content\metisMenu.min.css" />
+    <Content Include="app\static\app\content\mgmenu.css" />
+    <Content Include="app\static\app\content\mgmenu.min.css" />
+    <Content Include="app\static\app\content\owl.carousel.css" />
+    <Content Include="app\static\app\content\parallax-slider.css" />
+    <Content Include="app\static\app\content\real-estate.css" />
+    <Content Include="app\static\app\content\sb-admin-2.css" />
+    <Content Include="app\static\app\content\settings.css" />
+    <Content Include="app\static\app\content\style-6.css" />
+    <Content Include="app\static\app\content\style.css" />
+    <Content Include="app\static\app\scripts\analytics.js" />
+    <Content Include="app\static\app\scripts\custom.js" />
+    <Content Include="app\static\app\scripts\dataTables.bootstrap.js" />
+    <Content Include="app\static\app\scripts\ecommerce.js" />
+    <Content Include="app\static\app\scripts\excanvas.js" />
+    <Content Include="app\static\app\scripts\form-additional-methods.js" />
+    <Content Include="app\static\app\scripts\html5shiv.js" />
+    <Content Include="app\static\app\scripts\imagesloaded.min.js" />
+    <Content Include="app\static\app\scripts\isotope.js" />
+    <Content Include="app\static\app\scripts\jquery-1.11.1.min.js" />
+    <Content Include="app\static\app\scripts\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="app\static\app\scripts\jquery-ui-monthpicker.min.js" />
+    <Content Include="app\static\app\scripts\jquery-ui-timepicker.min.js" />
+    <Content Include="app\static\app\scripts\jquery-ui-touch-punch.min.js" />
+    <Content Include="app\static\app\scripts\jquery.arbitrary-anchor.js" />
+    <Content Include="app\static\app\scripts\jquery.bulletin.js" />
+    <Content Include="app\static\app\scripts\jquery.countdown.min.js" />
+    <Content Include="app\static\app\scripts\jquery.countTo.js" />
+    <Content Include="app\static\app\scripts\jquery.cslider.js" />
+    <Content Include="app\static\app\scripts\jquery.dataTables.js" />
+    <Content Include="app\static\app\scripts\jquery.gmap.min.js" />
+    <Content Include="app\static\app\scripts\jquery.js" />
+    <Content Include="app\static\app\scripts\jquery.knob.js" />
+    <Content Include="app\static\app\scripts\jquery.magnific-popup.min.js" />
+    <Content Include="app\static\app\scripts\jquery.maskedinput.js" />
+    <Content Include="app\static\app\scripts\jquery.spectrum.min.js" />
+    <Content Include="app\static\app\scripts\jquery.stepper.min.js" />
+    <Content Include="app\static\app\scripts\jquery.sticky.js" />
+    <Content Include="app\static\app\scripts\jquery.themepunch.plugins.min.js" />
+    <Content Include="app\static\app\scripts\jquery.themepunch.revolution.js" />
+    <Content Include="app\static\app\scripts\jquery.themepunch.revolution.min.js" />
+    <Content Include="app\static\app\scripts\main.js" />
+    <Content Include="app\static\app\scripts\masonry.js" />
+    <Content Include="app\static\app\scripts\metisMenu.js" />
+    <Content Include="app\static\app\scripts\metisMenu.min.js" />
+    <Content Include="app\static\app\scripts\mgmenu.js" />
+    <Content Include="app\static\app\scripts\mgmenu.min.js" />
+    <Content Include="app\static\app\scripts\mgmenu_plugins.js" />
+    <Content Include="app\static\app\scripts\modernizr.custom.28468.js" />
+    <Content Include="app\static\app\scripts\owl.carousel.js" />
+    <Content Include="app\static\app\scripts\owl.carousel.min.js" />
+    <Content Include="app\static\app\scripts\placeholders.js" />
+    <Content Include="app\static\app\scripts\real-estate.js" />
+    <Content Include="app\static\app\scripts\sb-admin-2.js" />
+    <Content Include="app\static\app\scripts\support-filter.js" />
+    <Content Include="app\static\app\scripts\waypoints.min.js" />
+    <Content Include="app\templates\app\MyHistory.html" />
+    <Content Include="app\templates\app\mynotification3.html" />
+    <Content Include="app\templates\app\mynotification2.html" />
+    <Content Include="app\templates\app\mynotification1.html" />
+    <Content Include="app\templates\app\requestupdate.html" />
+    <Content Include="app\templates\app\requesttool.html" />
+    <Content Include="app\templates\app\createuser.html" />
+    <Content Include="app\templates\app\createShed.html" />
+    <Content Include="app\templates\app\password_change_form.html" />
+    <Content Include="app\templates\app\Preference.html" />
+    <Content Include="app\templates\app\preregistartionlayout.html" />
+    <Content Include="app\templates\app\Profile.html" />
+    <Content Include="app\templates\app\registerTool.html" />
+    <Content Include="app\templates\app\Shed.html" />
+    <Content Include="app\templates\app\tooldetails.html" />
+    <Content Include="app\templates\app\shedTable.html" />
+    <Content Include="app\templates\app\userprofile.html" />
+    <Content Include="app\templates\app\usertable.html" />
+    <Content Include="app\templates\app\signup.html" />
+    <Content Include="app\templates\app\mytools.html" />
+    <Content Include="app\templates\app\mytooldetails.html" />
+    <Content Include="db.sqlite3" />
+    <Content Include="app\static\app\content\bootstrap.css" />
+    <Content Include="app\static\app\content\bootstrap.min.css" />
+    <Content Include="app\static\app\content\site.css" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\static\app\scripts\bootstrap.js" />
+    <Content Include="app\static\app\scripts\bootstrap.min.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.min.map" />
+    <Content Include="app\static\app\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="app\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="app\static\app\scripts\respond.js" />
+    <Content Include="app\static\app\scripts\respond.min.js" />
+    <Content Include="app\static\app\scripts\_references.js" />
+    <Content Include="app\templates\app\about.html" />
+    <Content Include="app\templates\app\contact.html" />
+    <Content Include="app\templates\app\index.html" />
+    <Content Include="app\templates\app\layout.html" />
+    <Content Include="app\templates\app\login.html" />
+    <Content Include="app\templates\app\loginpartial.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

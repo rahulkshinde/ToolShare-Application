@@ -1,0 +1,610 @@
+﻿{% extends "app/layout.html" %}
+{% load staticfiles %}
+{% block content %}
+
+
+       
+<style>
+.onoffswitch {
+    position: relative; width: 130px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 20px; padding: 0; line-height: 20px;
+    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 6px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 20px;
+    position: absolute; top: 0; bottom: 0; right: 56px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
+
+
+
+</style>
+		<div class="outer">
+			<div class="main-block real-estate">
+				
+				<div class="container">
+					
+					<!-- Actual content -->
+					<div class="rs-property">
+						<!-- Block heading two -->
+                        <div class="row" style="padding:0px">
+                            <div class="col-md-6">
+                                <h3><span>{{tool.name}}-{{tool.uniqueness}}</span></h3>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="text-align:right">Owner:<a href="/userprofile/{{tool.userID.id}}"><span class="lblue">{{tool.userID.username}}</span></a></h4>
+                            </div>						
+							
+						</div>
+					
+						<div class="row" style="border: 1px solid; border-color:ActiveCaption;" id="maindiv"> 
+							<div class="col-lg-7">
+								<!-- Nav tab style 1 starts -->
+											<!-- Real estate property item -->
+											<div class="single-property">
+												<!-- Outer layer -->
+												<div id="bs-carousel-1" class="carousel slide" data-ride="carousel" data-interval="5000" data-pause="hover" data-wrap="true">
+													<!-- Bootstrap indicators. If you don't need indicators, remove the below section -->
+													<ol class="carousel-indicators">
+													</ol>
+													<!-- Slides. You can also add captions -->
+													<div class="carousel-inner" style="height:390px">
+														<!-- Item, First item should have extra class "active" -->
+                                                            {%if tool.stuff_image%}
+                                                                <img src="../static/app/{{tool.stuff_image}}"  alt="" style="height:410px"/>
+                                                            {%else%}
+                                                                <img src="http://placehold.it/800x500" alt="">
+                                                            {%endif%}
+                  												</div>
+													<!-- Carousel controls (arrows). If you don't need controls, remove the below section -->
+													</div>
+											</div>
+      
+							</div>
+							
+                              <div class="col-lg-5" style="padding-right:0; border-color:ActiveCaption;">
+                                <dl class="dl-horizontal">
+                                     <dt style="width:80px">Description:</dt>
+                                     <dd style="margin-left:100px;"><p class="main" style=" text-align: justify;overflow-y:auto;height:100px;padding-right:3px;border:1px">{{tool.Description}}</p></dd>
+                                </dl>
+                               
+                                <dl class="dl-horizontal">  
+                                     <dt>Category :</dt>
+                                     <dd>{{tool.Category}}</dd>
+                                     {%if not isowner%}
+                                        {% if tool.availability%}
+                                            <dt>Availability :</dt>
+                                            <dd><label style="width:130px;height:30px; overflow: hidden; cursor:text;border: 1px solid #999999; border-radius: 5px;">Available</label></dd>
+                                        {% else %}
+                                            <dt>Availability :</dt>
+                                            <dd><label style="width:130px;height:30px; overflow: hidden; cursor:text;border: 1px solid #999999; border-radius: 5px;">Unavailable</label></dd>
+                                        {% endif %}
+                                     {%else%}                                   
+                                            <dt id="availability1" style="display:none">Availability :</dt>
+                                            <dd id="availability2" style="display:none">
+                                                <div class="onoffswitch">
+                                                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"  id="myonoffswitch1" onchange="onchangef()">
+                                                        <label class="onoffswitch-label" for="myonoffswitch1">
+                                                        <span class="onoffswitch-inner"></span>
+                                                        <span class="onoffswitch-switch" ></span>
+                                                    </label>
+                                                </div>
+                                            </dd>
+                                     {%endif%}
+
+                                     <dt id="activation1" style="display:none">Activation :</dt>
+                                     <dd id="activation2" style="display:none">
+                                         <div class="onoffswitch">
+                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"  id="myonoffswitch" onchange="onchangef()">
+                                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                                            <span class="onoffswitch-inner"></span>
+                                                            <span class="onoffswitch-switch" ></span>
+                                                        </label>
+
+                                        </div>
+                                     </dd>
+     
+                                    
+         
+
+                                     <dt>Usage count :</dt>
+                                     <dd>{{tool.useCount}}</dd>
+                                     <dt>Sharing Loction :</dt> 
+                                     <dd>
+                                        <div id="sharinglocationuser" style="display:none">
+                                            {{tool.pickuparrangement}}
+                                             {% if tool.pickuparrangement == "Shed" %}
+                                                ({{tool.shedID.Name}})
+                                             {% endif %}
+                                            {% if tool.pickuparrangement == "Other" %}
+                                                {{tool.Address1}}
+                                        
+                                             {% endif %}
+                                        </div>  
+                                        <div id="sharinglocationowner" style="display:none">
+                                            <select name="pickuparrangement"id="sharinglocationchoices" onclick="sharinglocationf()" style="width:130px" onchange="onchangef()">
+                                                <option value="Home">Home</option>
+                                                <option value="Shed">Shed</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                           <select name="shed_id"id="sharezonesheds" style="display:none;width:130px" onclick="sharinglocationf()"  onchange="onchangef()">
+                                                {% for shed in sheds %}
+                                                    <option value="{{shed.id}}">{{shed.Name}}</option>
+                                                {% endfor %}
+                                            </select>
+                        
+                                            <div id="otheraddress"style="display:none;color:black; font-size:12px; font-family:cursive;margin:5px">
+                                                    <p onclick="onclickf('address1','address1_entry')"  style="display: block; overflow: hidden;border: 0px solid #999999; border-radius: 10px"><span style="color:black; font-size:14px; font-family:Arial,sans-serif;" id="address1" onclick="onclickf('address1','address1_entry')"> {{tool.Address1}}</span><input id="address1_entry" style="display:none;" onblur="onblurf('address1', 'address1_entry')" onchange="onchangef()"></p>
+                                                   
+                                                    <p onclick="onclickf('address2','address2_entry')" style="display: block; overflow: hidden;border: 0px solid #999999; border-radius: 10px"><span style="color:black; font-size:14px; font-family:Arial,sans-serif;" id="address2" onclick="onclickf('address2','address2_entry')"> {{tool.Address2}}</span><input id="address2_entry" style="display:none;" onblur="onblurf('address2', 'address2_entry')" onchange="onchangef()"></p>
+                                            </div>
+
+                                        </div>
+
+                                        </dd>
+                                   
+                                   
+                                        <dt>Regesteration date :</dt>
+                                        <dd>{{tool.registrationDate|date:"D d M Y"}}</dd>
+                                         
+                                        <dt>Last Use date :</dt>
+                                        <dd>{{tool.lastBorrowDate|date:"D d M Y"}}</dd>
+                                    </dl>
+
+                                <div class="row">
+            
+                                 <div class="col-lg-12">
+                                    <div class="row" id="borrowrequestdiv" style="display:none;padding-left:5px;padding-right:10px">
+                                        
+                                        <div class="col-lg-4" style="justify-content:center">   <button type="button" class="btn btn-lblue" id="borrowbutton" style=" overflow: hidden; cursor:auto;border: 1px solid #999999; border-radius: 10px;" onclick="reservationshowf()">      Request This tool       </button></div>
+                                        <div class="col-lg-4"></div> 
+                                        <div class="col-lg-4" style="justify-content:center">   <p style="text-align:right"><button type="button" class="btn btn-red  " id="returnbutton"  style=" overflow: hidden; cursor:auto;border: 1px solid #999999; border-radius: 10px;" >      Return This tool       </button></p></div>
+                                  </div>
+                                  <div class="row" id="savecanceldiv" style="display:none">
+                                        
+                                        <div class="col-lg-4" style="justify-content:center">   <button type="button" class="btn btn-lblue" id="savebutton" onclick="save()" style=" display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;">     Save Changes       </button></div>
+                                        <div class="col-lg-4"></div>
+                                        
+                                        <div class="col-lg-4" style="justify-content:center">  <a href="{%url 'mytools'%}" <p style="text-align:right"> <button type="button" class="btn btn-red  " id="cancelbutton" style="width:120px;display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px">   Cancel       </button></p></a></div>
+                                  </div>
+
+                                </div>
+                            </div>    
+                              </div>
+
+
+                        </div>
+                        <div class="row" id="reservationdiv" style="display:none">
+                            <div class="col-sm-12" style="padding:0px">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 style="text-align:center;font-family:'Times New Roman'"><span>Tool Request Form</span></h3>
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <table class="table table-responsive" style="background-color:white;border-color:white">
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right">From:</p></td>
+                                                <td style="border:0px"><input type="text" id="startdate" name="mydate"></td>
+                                                <td style="border:0px"><p style="text-align:right">To:</p></td>
+                                                <td style="border:0px"><input type="text" id="enddate" name="mydate"></td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right">Messge:</p></td>
+                                                <td colspan="3" style="border:0px"><textarea  cols="80" rows="4"  id="borrowermessage"> </textarea></td>
+                                            </tr>
+                                                                                        
+                                            <tr>
+                                                <td style="border:0px"><p style="text-align:right"></p></td>
+                                                <td style="border:0px;width:50px">
+                                                <table>
+                                                    <tr>
+                                                        <td style="border:0px">
+                                                             <button type="button" class="btn btn-grey" id="requestconfirmbutton" onclick="requestconfirm()" style="width:100px; display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;">     Confirm      </button> 
+                                                        </td>
+                                                        <td style="border:0px">
+                                                             <button type="button" class="btn btn-grey  " id="requestcancelbutton" style="width:100px;display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;" onclick="reservationhidef()">   Cancel       </button> 
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                        
+                                            </tr>
+                              
+                                        </table>
+
+                                    </div>	
+                                  
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>	
+
+
+                        <br />                
+                        <div class="row">
+                            <div class="col-sm-12" style="padding:0px">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="height:50px;vertical-align:top">
+                                        <h3 style="text-align:center;font-family:'Times New Roman';vertical-align:text-top"><span>Tool reservation table</span></h3>
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Borrower</th>
+                                                        <th>Start Date</th>
+                                                        <th>End Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for req in requestlist%}
+                                                        <tr>
+                                                            <td> {{req.BoorowerId.username}} </td> 
+                                                            <td >{{req.StartDate|date:"D d M Y"}}</td>
+                                                            <td >{{req.EndDate|date:"D d M Y"}}</td>
+                                                        </tr>
+                                                {%endfor%}
+                                                 </tbody>
+                                            </table>
+                                        </div>
+                                    <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>	
+
+						</div>
+						
+					</div>
+									
+			</div>
+         <br />				
+</div>
+
+<br />
+<br />	
+{%endblock%}
+{%block scripts%}	
+<script>
+    isowner="{{isowner}}"
+    isborrower="{{isborrower}}"
+    isavailable = "{{tool.availability}}"
+    Cannot_Change_Details = "{{Cannot_Change_Details}}"
+    activation="{{tool.activation}}";
+    availability="{{tool.availability}}";
+    var postUrl = "/tooldetails/{{tool.id}}";
+    var pickuparrangement="{{tool.pickuparrangement}}";
+    var originalValue='';
+    displayValue='';
+    requstPostUrl= "/requesttool/{{tool.id}}";
+    Cannot_Change_Details = "{{Cannot_Change_Details}}";
+
+</script>
+<script>
+    var i = 0; var fromdate = []; todate = [];
+    function stringtodate(stringdate)
+    {
+        var a = stringdate.split(',');
+        b = a[0].split('.');
+        dat1 = new Date(b[1] + '-' + b[0] + '-' + a[1]);
+        month = (dat1.getMonth() + 1) > 9 ? (dat1.getMonth() + 1) : '0' + (dat1.getMonth() + 1);
+        day = dat1.getDate() > 9 ? dat1.getDate() : '0' + dat1.getDate();
+        return (dat1.getFullYear() + '-' + month + '-' + day);
+    }
+
+</script>
+{%for req in requestlist %}
+      <script>
+          fromdate[i]= stringtodate("{{req.StartDate}}");
+          todate[i]= stringtodate("{{req.EndDate}}");
+          i++;
+      </script>
+{% endfor %}
+<script>
+    //===================  datepicker jquery functions =================================
+
+    function enabledate1(d) {
+        if (fromdate.length == 0)
+            return [true, ''];
+        var curr_date = d.getDate() > 9 ? d.getDate() : '0' + d.getDate();
+        var curr_month = d.getMonth() + 1 > 9 ? d.getMonth() + 1 : '0' + d.getMonth() + 1;
+        var curr_year = d.getFullYear();
+        var dDate = curr_year + '-' + curr_month + '-' + curr_date;
+        flag = false;
+        for (var i = 0; i < fromdate.length; i++) {
+            flag = dDate >= fromdate[i] && dDate <= todate[i];
+            if (flag) break;
+        }
+        return [!flag, ''];
+    }
+    function enabledate2(d) {
+        if (fromdate.length == 0)
+            return [true, ''];
+        var curr_date = d.getDate() > 9 ? d.getDate() : '0' + d.getDate();
+        var curr_month = d.getMonth() + 1 > 9 ? d.getMonth() + 1 : '0' + d.getMonth() + 1;
+        var curr_year = d.getFullYear();
+        var dDate = curr_year + '-' + curr_month + '-' + curr_date;
+        var d = $('#startdate').datepicker("getDate");
+
+        var curr_date = d.getDate() > 9 ? d.getDate() : '0' + d.getDate();
+        var curr_month = d.getMonth() + 1 > 9 ? d.getMonth() + 1 : '0' + d.getMonth() + 1;
+        var curr_year = d.getFullYear();
+        var dDate1 = curr_year + '-' + curr_month + '-' + curr_date;
+        //alert(dDate + '     ' + dDate1);
+        if (fromdate.length == 0)
+            return [true, ''];
+        for (i = 0; i < fromdate.length; i++) {
+            if (dDate1 < fromdate[i]) {
+                flag = (dDate > dDate1) && (dDate < fromdate[i]);
+                return [flag, ''];
+            }
+
+        }
+
+        return [true, ''];
+    }
+
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+        $("#startdate").datepicker({
+            numberOfMonths: 1,
+            dateFormat: 'yy-mm-dd',
+            minDate: new Date(),
+            onSelect: function (selectedDate) 
+            {
+                if (this.id == 'startdate') 
+                {
+                    var dateMin = $('#startdate').datepicker("getDate");
+                    var rMin = new Date(dateMin.getFullYear(), dateMin.getMonth(), dateMin.getDate() + 1);
+                    $('#enddate').val($.datepicker.formatDate('yy-mm-dd', new Date(rMin)));
+                    $("#enddate").datepicker("option", "disabled", false);
+                    $("#enddate").datepicker("option", "minDate", new Date(rMin));
+                }
+            },
+            beforeShowDay: enabledate1,
+            
+        });
+        jQuery("#enddate").datepicker({
+            disabled: true,
+            dateFormat: 'yy-mm-dd',
+            beforeShowDay: enabledate2,
+        });
+    });
+
+    //===================  End of datepicker jquery functions ==========================
+
+    istheowner();
+    sharinglocationf();
+    function sharinglocationf()
+    {
+        if (Cannot_Change_Details == '0') {
+            var selectedvalue = document.getElementById('sharinglocationchoices').value;
+
+            if (selectedvalue == 'Shed') {
+                document.getElementById('sharezonesheds').style.display = '';
+                document.getElementById('otheraddress').style.display = 'none';
+            }
+            else if (selectedvalue == 'Other') {
+                document.getElementById('sharezonesheds').style.display = 'none';
+                document.getElementById('otheraddress').style.display = '';
+
+            }
+            else {
+                document.getElementById('sharezonesheds').style.display = 'none';
+                document.getElementById('otheraddress').style.display = 'none';
+            }
+        }
+    }
+    function istheowner()
+    {
+        if (isowner == 'True')
+        {
+            document.getElementById("activation1").style.display='';
+            document.getElementById("activation2").style.display='';
+            document.getElementById("availability1").style.display='';
+            document.getElementById("availability2").style.display='';
+            document.getElementById("sharinglocationowner").style.display = '';
+            document.getElementById("sharinglocationchoices").value = pickuparrangement;
+            if(activation=='True')
+                document.getElementById("myonoffswitch").checked = true;
+            else
+                document.getElementById("myonoffswitch").checked = false;
+            document.getElementById("myonoffswitch").style.display = '';
+            if(availability=='True')
+                document.getElementById("myonoffswitch1").checked = true;
+            else
+                document.getElementById("myonoffswitch1").checked = false;
+            document.getElementById("myonoffswitch1").style.inn
+
+        }
+        else
+        {
+            document.getElementById("borrowrequestdiv").style.display = '';
+            document.getElementById("sharinglocationuser").style.display = '';
+            //Disable the request button when the tool is made unavailable
+            if (isborrower == '0') {
+                document.getElementById("borrowbutton").style.display = '';
+                document.getElementById("returnbutton").style.display = 'none';
+            }
+            else {
+                document.getElementById("borrowbutton").style.display = 'none';
+                document.getElementById("returnbutton").style.display = 'none';
+            }
+
+
+            
+        }
+        
+    }
+    function onchangef()
+    {
+        if (Cannot_Change_Details == '1')
+        { alert("Currently the tool is either borrowed or has future Reservantions and hence availability,activation,location cannot be saved"); }
+        else
+        {
+            document.getElementById("savecanceldiv").style.display = '';
+        }
+    }
+
+    function reservationshowf() {
+        document.getElementById("maindiv").style.display = 'none';
+        document.getElementById("reservationdiv").style.display = '';
+    }
+
+    function reservationhidef() {
+        document.getElementById("maindiv").style.display = '';
+        document.getElementById("reservationdiv").style.display = 'none';
+    }
+    function onclickf(var1, var2)
+    {
+        if (isowner == "False") 
+        {
+            return;
+        }
+        var obj1 = document.getElementById(var1);
+        obj1.style.display = 'none';
+        var obj2 = document.getElementById(var2);
+        obj2.style.display = '';
+        $(obj2)
+            .val($(obj1).text())
+            .focus();
+        originalValue = $(obj1).text();
+        displayValue=document.getElementById("savecanceldiv").style.display;
+    }
+    function onblurf(var1, var2)
+    {
+        if (isowner == "False") {
+            return;
+        }
+        
+        var obj1 = document.getElementById(var1);
+        var obj2 = document.getElementById(var2);
+        $(obj2).css('display', 'none');
+        if ($(obj2).val() != '') {
+            $(obj1)
+                .text($(obj2).val())
+                .css('display', '');
+        }
+        else {
+            alert('This Value cannot be Null! please Enter a valid value');
+            $(obj1)
+                .text(originalValue)
+                .css('display', '');
+            document.getElementById("savecanceldiv").style.display = displayValue;
+        }
+
+    }
+    function save()
+    {
+        var activationvalue = document.getElementById("myonoffswitch").checked ? 1 : 0;
+        var a = document.getElementById("myonoffswitch").checked ? 1 : 0;
+        var b = document.getElementById("myonoffswitch1").checked ? 1 : 0;
+        var c = document.getElementById("sharinglocationchoices").value;
+        if (b == 1)
+            status1 = "Available"
+        else
+            status1 = "Not Available"
+        data ={
+            activation: activationvalue,
+            availability:b,
+            pickuparrangement:c,
+            status: status1,
+            shed_id: $("#sharezonesheds option:selected").val(), 
+            sharinglocation: $("#sharinglocationchoices option:selected").val(),
+            otheraddress1: $("#address1_entry").val(),
+            otheraddress2: $("#address2_entry").val()
+        };
+        $.ajax({
+            url: postUrl,
+            type: "POST",
+            data: data,
+            success: function () {
+                var obj1 = document.getElementById('savecanceldiv').style.display = 'none';
+                alert('Your Tool information has been successfully updated');
+
+            },
+            error: function () {
+
+                alert('Sorry!! some thing wrong in your data. please try again');
+
+            }
+
+        });
+    }
+    function requestconfirm()
+    {
+        var startdate = $('#startdate').datepicker("getDate");
+        var enddate = $('#enddate').datepicker("getDate");
+        borrowermessage = document.getElementById("borrowermessage").value;
+        if (borrowermessage.trim() == '')
+            borrowermessage = 'I want this tool during this interval';
+
+        var date1 = startdate.getFullYear()+'-'+ (startdate.getMonth()+1)+'-'+ startdate.getDate()+' 00:00:00';
+        var date2 = enddate.getFullYear() + '-' + (enddate.getMonth()+1) + '-' + enddate.getDate() + ' 00:00:00';
+            data = {
+                startdate: date1,
+                enddate: date2,
+                message1: borrowermessage,
+                message2:''
+            };
+            $.ajax({
+                url: requstPostUrl,
+                type: "POST",
+                data: data,
+                success: function () {
+                    var obj1 = document.getElementById('savecanceldiv').style.display = 'none';
+                    alert('Your request has been successfully updated');
+                    location.reload();
+
+                },
+                error: function () {
+                    alert('Sorry!! some thing wrong in your request subission. please try again');
+                }
+            });
+    }
+</script>
+{%endblock%}				

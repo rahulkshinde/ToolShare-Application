@@ -1,0 +1,65 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<!-- Navigation -->
+<!-- Page Content -->
+<style>
+
+.container img {
+  height: 150px;
+  width: 500px;
+}
+</style>
+
+<div class="container">
+
+    <!-- Jumbotron Header -->
+    <form class="form-horizontal" role="form" method="post" action="Shed.html">
+        {% csrf_token %}
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>My Tools</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Page Features -->
+        <div class="row text-center">
+            {%if tool %}
+            {% for s in tool%}
+            <div class="col-sm-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    {%if s.stuff_image%}
+                    <img src="../static/app/{{s.stuff_image}}" />
+                    {%else%}
+                    <img src="http://placehold.it/800x500" alt="">
+                    {%endif%}
+                    <div class="caption">
+                        <h3>{{s.name}}</h3>
+                       
+                        <p>Status : {{s.status}}</p>
+                      
+                        <p>
+                            <a href="tooldetails/{{s.id}}" class="btn btn-primary">More Info</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+                    <div class="row">
+                		
+                    <div class="alert alert-danger alert-error">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong> sorry, you dont have any registered tool!</strong>
+                    </div>
+             
+        </div>
+            {%endif%}
+
+        </div>
+        <!-- /.row -->
+        <!-- Footer -->
+        </form>
+</div>
+{% endblock %}
+

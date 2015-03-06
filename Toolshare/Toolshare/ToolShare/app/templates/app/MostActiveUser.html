@@ -1,0 +1,58 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Users statistics </h4>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                      <table class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:130px">User Name </th>
+                                                        <th style="width:130px">Registeration Date-Time </th>
+                                                        <th style="width:130px">Lend Count</th>
+                                                        <th style="width:150px">Borrow Count</th>
+                                                        <th style="width:100px">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>  
+                                                 {%if requests%} 
+                                                    {%for request in requests%}
+                                                        <tr style="font-size:larger">
+                                                            <td style="padding:2pt;">{{request.username}}</td>
+                                                            <th style="width:130px">{{request.date_joined|date:"d-M-Y H:m:s"}}</th>
+                                                            <td style="padding:2pt;">{{request.LendCount}}</td>
+                                                            <td style="padding:2pt;">{{request.BorrowCount}}</td>
+                                                            <td style="padding:2pt;">{{request.BorrowCount|add:request.LendCount}}</td>
+                                                        </tr>
+                                                    {%endfor%}
+                                                 {%endif%}                                               
+                                 
+                                                </tbody>
+                      </table>
+                </div>
+            <!-- /.table-responsive -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+{% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function () {
+        var oTable = $('#dataTables-example1').dataTable();
+        oTable.fnSort([[4, 'desc']]);
+    });
+</script>
+{% endblock %}

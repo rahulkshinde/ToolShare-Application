@@ -1,0 +1,62 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+		
+			<!-- Login Form -->
+	<div class="login-reg">
+			<!-- Login Form -->
+			<div class="login-reg-form">
+				<!-- Heading -->
+				<h3> <b> Change Preference </b> </h3>
+				<br />
+				<!-- Form -->
+				<!-- Form Horizontal -->
+				<form class="form-horizontal" role="form" method="post" action="preference.html" >{% csrf_token %}
+					<!-- Form Group -->
+				    <script>
+                        function success()
+                        {
+                        alert("Updated Successfully");
+                        }
+                    </script>
+                    <script>
+                        function cancel()
+                        {
+                            window.location.href = "/usertable.html";
+                        }
+                    </script>
+					<div class="form-group">
+						<label for="pick-up" class="col-sm-3 control-label">Pick Up Arrangement</label>
+						<div class="col-sm-5">
+						{{ form.PickUpArrangements}}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="remainder" class="col-sm-3 control-label">Remainder Frequency</label>
+						<div class="col-sm-5">
+					    {{ form.RemainderFrequency1}}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="remaindertype" class="col-sm-3 control-label">Remainder Type</label>
+						<div class="col-sm-5">
+					    {{ form.RemainderType1}}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+						  <!-- Button -->
+						  <button type="submit" value="POST" class="btn btn-blue" >Save</button>&nbsp;
+						  <button type="reset" value="POST" class="btn btn-black" >Cancel</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+	</div>
+	
+		<!-- Login Ends -->
+
+{% endblock %}

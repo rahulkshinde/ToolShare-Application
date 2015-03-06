@@ -1,0 +1,149 @@
+{% extends "app/preregistartionlayout.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<br />
+
+<div class="well" >
+			<!-- Login Form -->
+			
+			<!-- Registration starts -->
+			 <!-- Heading -->
+			<h4 style="text-align:center">Sign up</h4>
+			<hr>
+
+			<!-- Form -->
+			<!-- Form Horizontal -->
+            <form class="form-horizontal" role="form" method="post" action="signup.html" >{% csrf_token %}
+			<!-- Form Group -->
+			{% if form.errors %}
+                    <div class="alert alert-danger alert-error">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Error!</strong> A problem has been occurred while submitting your data.
+                        Please correct the below fields
+                            {% for field in form %} 
+			                    {% if field.errors %}
+			                        <li>{{ field.label }}:{{ field.errors|striptags }}</li>
+			                    {% endif %}
+		                    {% endfor %}
+                    </div>
+             {% endif %}
+            <div class="form-group">
+		        <!-- Label -->
+		        <label for="first_name" class="col-sm-3 control-label">Full Name :</label>
+			    <div class="col-sm-3">
+		            <!-- Input -->
+			        {{ form.first_name}}
+			    </div>
+                <div class="col-sm-3">
+					<!-- Input -->
+						{{ form.middle_name}}
+			    </div>
+                <div class="col-sm-3">
+					<!-- Input -->
+						{{ form.last_name}}
+			    </div>
+			</div>
+            <br />
+			<div class="form-group">
+				<!-- Label -->
+				<label for="Gender" class="col-sm-3 control-label">Gender :</label>
+				<div class="col-sm-3">
+					<!-- Input -->
+					{{ form.gender |add_class:"form-control" }}										
+				</div>
+                <label for="dateofbirth" class="col-sm-3 control-label">Date of Birth :</label>
+				<div class="col-sm-3">
+					 <!-- Input -->
+					{{ form.dateofbirth | add_class:"form-control" |add_class:"datepicker"}}										
+				</div>
+			</div>
+
+<br />	
+    <hr />								
+			<div class="form-group">
+				<!-- Label -->
+				<label for="username" class="col-sm-3 control-label">Account info :</label>
+				<div class="col-sm-3">
+					<!-- Input -->
+					{{ form.username }}
+				</div>
+				<div class="col-sm-3">
+                    {{ form.password1 |add_class:"form-control" }}
+				</div>
+			    <div class="col-sm-3">
+					{{ form.password2 |add_class:"form-control" }}	
+				</div>
+			</div>
+			<br />					
+            <hr />
+			<div class="form-group">
+				<!-- Label -->
+				<label for="Address1" class="col-sm-3 control-label">Address :</label>
+				<div class="col-sm-3">
+					<!-- Input -->
+					{{ form.address1 |add_class:"form-control" }}	
+				</div>
+                <div class="col-sm-3">
+					<!-- Input -->
+					{{ form.address2 |add_class:"form-control" }}										
+				</div>
+            </div>
+            <div class="form-group">
+                <label for="City" class="col-sm-3 control-label">Sharezone info :</label>
+				<div class="col-sm-2">
+					<!-- Input -->
+					{{ form.city |add_class:"form-control" }}										
+				</div>
+				<div class="col-sm-2">
+				     <!-- Input -->
+					{{ form.state |add_class:"form-control" }}										
+				</div>
+				<div class="col-sm-2">
+				<!-- Input -->
+					{{ form.country |add_class:"form-control" }}										
+				</div>
+                <div class="col-sm-2">
+				<!-- Input -->
+					{{ form.zipcode |add_class:"form-control" }}										
+				</div>
+			</div>
+
+
+<br />
+	<hr />					
+									
+			<div class="form-group">
+				<!-- Label -->
+				<label for="Pickuparrangement" class="col-sm-3 control-label">Pick Up Arrangement :</label>
+				<div class="col-sm-3">
+				    <!-- Input -->
+					{{ form.pickuparrangement |add_class:"form-control" }}										
+				</div>
+			</div>
+			<br />
+			<div class="form-group">
+			<!-- Label -->
+			    <label for="email" class="col-sm-3 control-label ">Contacts :</label>
+				<div class="col-sm-3">
+				    <!-- Input -->
+				    {{ form.email }}
+			    </div>
+                <div class="col-sm-3">
+				    <!-- Input -->
+				    {{ form.PhoneNumber }}
+			    </div>
+			</div>
+					
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+				<!-- Buton -->
+				    <button type="submit" class="btn btn-blue">Register</button>&nbsp;
+				    <button type="reset" class="btn btn-white">Reset</button>
+			    </div>
+			</div>
+    	</form>
+	</div>
+
+
+			<!-- Login ends -->
+{% endblock %}

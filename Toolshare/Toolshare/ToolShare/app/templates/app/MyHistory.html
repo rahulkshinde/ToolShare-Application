@@ -1,0 +1,63 @@
+﻿{% extends "app/layout.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+<div class="rs-property">	
+			
+<br>
+<div class="row" id="mainwindow">
+	<div class="col-md-12 col-sm-12">
+					<div class="row">
+                         <div class="col-sm-12" style="padding:2pt;min-height:450px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                               <h4> Request History</h4> 
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example1">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:200px">Tool Name </th>
+                                                        <th style="width:200px">Owner</th>
+                                                        <th style="width:200px">Start Date</th>
+                                                        <th style="width:200px">End Date</th>
+                                                        <th>Request Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>  
+                                                 {%if requestlist1%} 
+                                                    {%for request in requestlist1%}
+                                                        <tr>
+                                                            <td style="padding:2pt"><a href="tooldetails/{{request.ToolId.id}}">{{request.ToolId.name}}</a></td>
+                                                            <td style="padding:2pt;">{{request.Owner}}</td>
+                                                            <td style="padding:2pt;">{{request.StartDate|date:"D d M Y"}}</td>
+                                                            <td style="padding:2pt;">{{request.EndDate|date:"D d M Y"}}</td>
+                                                            <td style="padding:2pt">{{request.status}}</td >
+                                                        </tr>
+                                                    {%endfor%}
+                                                 {%endif%}                                               
+                                 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    <!-- /.table-responsive -->
+                            </div>
+    
+                     </div>								
+			</div>
+	    </div>
+
+
+						
+</div>
+</div>													
+
+{% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example1').dataTable();
+    });
+ </script>
+{%endblock%}

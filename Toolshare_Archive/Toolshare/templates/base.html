@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Translational//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-translational.dtd">
+<html>
+	<head>
+		<Title>	Toolshare | {% block title%}{% endblock %}</Title>
+		<link rel="stylesheet" href="/site_media/style.css" type="text/css">
+	</head>
+	<body>
+	<div id="nav">
+		<a href="/">home</a>   |
+		{% if user.is_authenticated %}
+			welcome {{ user.username }}
+			(<a href="/logout">logout</a>)
+		{% else %}
+			<a href="/login/">login</a>	|
+			<a href="/register">register</a>
+		{% endif %}
+	</div>
+	<h1>{%block head%}{%endblock%}</h1>
+	{%block content%}{%endblock%}
+	</body>
+	<footer class="mainfooter">
+	<p>copyright &copy; 2014</p>
+	</footer>
+</html>

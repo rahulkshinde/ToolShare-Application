@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{%block title%}Welcome to Toolshare{%endblock%}
+{%block head%}Welcome to Toolshare{%endblock%}
+{%block content%}
+		{% if user.username %}
+			<p>Welcome {{user.username}}!
+			Here you can store and share tools!</p>
+			{%else%}
+			<p>Welcome user!
+			You need to <a href="/login/">login</a>
+			before you can store and share tools.</p>
+		{%endif%}
+		<p>Tool Share is meant to enable neighbours in a community to be able to share items of common use. This platform provides an easy way to anyone wanting to participate to register and be able to share or borrow items.The Tool Share product is intended to improve communities by providing and easy mechanism for sharing items between neighbours. 
+		We envision this to primarily consist of tool exchanges but the implementation must be easily extended to include items of different kinds.</p> 
+{%endblock%}

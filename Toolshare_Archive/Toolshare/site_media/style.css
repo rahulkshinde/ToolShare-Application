@@ -1,0 +1,30 @@
+#nav {
+	float: right;
+}
+
+input {
+	display: block;
+}
+
+body {
+	background-color: #E0EEEE;
+	font-size: 80%;
+	height:100%;
+	font-family: 'Lucida Sans Unicode';
+	line-height: 1.5;
+	text-align: left;
+	margin:0 auto;
+	width: 75%;
+	clear:both;
+}
+
+a{
+	text-decoloration: none;
+}
+
+.mainfooter{
+	width:100%;
+	float: left;
+	border-radius: 7px;
+	background-color: #808080;
+}

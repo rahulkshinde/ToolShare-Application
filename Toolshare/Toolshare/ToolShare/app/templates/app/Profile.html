@@ -1,0 +1,139 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+
+
+			<!-- Login Form -->
+			<div class="well login-reg-form">
+				<!-- Heading -->
+				<h4> <b> Update Your Profile </b> </h4>
+				<br />
+				<!-- Form -->
+				<!-- Form Horizontal -->
+				<form class="form-horizontal" role="form" method="post" action="profile.html" autocomplete="on" name="myForm" enctype="multipart/form-data">{% csrf_token %}
+					<!-- Form Group -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-error">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <strong>Error!</strong> A problem has been occurred while submitting your data.
+                            Please correct the below fields
+                                {% for field in form %} 
+			                        {% if field.errors %}
+			                         <li>{{ field.label }}:{{ field.errors|striptags }}</li>
+			                        {% endif %}
+                                {% endfor %}
+                        </div>
+                    {% endif %}
+					<div class="form-group">
+						<!-- Label -->
+						<label for="First Name" class="col-sm-3 control-label">First Name</label>
+						<div class="col-sm-9">
+						  <!-- Input -->
+						  {{ form.FirstName}}
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="Middle Name" class="col-sm-3 control-label">Middle Name</label>
+						<div class="col-sm-9">
+						{{ form.MiddleName}}
+						</div>
+					</div>
+                    <div class="form-group">
+						<label for="Last Name" class="col-sm-3 control-label">Last Name</label>
+						<div class="col-sm-9">
+						  {{ form.LastName}}
+						</div>
+					</div>
+
+					
+					<div class="form-group">
+						<label for="pick-up" class="col-sm-3 control-label">Gender</label>
+						<div class="col-sm-5">
+							{{ form.Gender1 }}	
+						</div>
+					</div>
+
+					
+
+					
+					<div class="form-group">
+						<label for="Address1" class="col-sm-3 control-label">Address1</label>
+						<div class="col-sm-9">
+						  {{ form.Address11 }}
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="Address2" class="col-sm-3 control-label">Address2</label>
+						<div class="col-sm-9">
+						 {{ form.Address12 }}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="City" class="col-sm-3 control-label">City</label>
+						<div class="col-sm-9">
+						  {{ form.City11 }}
+						</div>
+					</div>
+					
+				    <div class="form-group">
+						<label for="State" class="col-sm-3 control-label">State</label>
+						<div class="col-sm-9">
+						{{ form.State11  }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="ZipCode" class="col-sm-3 control-label">ZipCode</label>
+						<div class="col-sm-9">
+						   {{ form.ZipCode }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Country" class="col-sm-3 control-label">Country</label>
+						<div class="col-sm-9">
+						  {{ form.Country11 }}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="Email" class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-9">
+						  {{ form.Email }}
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label for="Phone Number" class="col-sm-3 control-label">Phone Number</label>
+						<div class="col-sm-9">
+						 {{ form.PhoneNumber }}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+						  <!-- Buton -->
+						  <button type="submit"  class="btn btn-blue" onclick="checkvalues()">Update</button>&nbsp;
+						  <button type="reset" value="POST" class="btn btn-black" Onclick="cancel()">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
+        <br />
+        <br />		
+		<!-- Login Ends -->
+
+{% endblock %}
+{%block scripts%}
+<script>
+    function checkvalues()
+    {
+        
+
+}
+ </script>
+{% endblock %}

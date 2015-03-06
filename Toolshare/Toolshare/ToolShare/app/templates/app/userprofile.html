@@ -1,0 +1,97 @@
+﻿{% extends "app/layout.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+					
+					<!-- Actual content -->
+					<div class="rs-property">
+						<!-- Block heading two -->
+	<br />
+						<div class="row" style="border:2px;border-color:ActiveBorder">
+							<div class="col-md-12 col-sm-12">
+								<!-- Nav tab style 1 starts -->
+								<div class="nav-tabs-one">
+									<!-- Nav tabs -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" style="background-color:white">
+                                               <h4>User profile</h4> 
+                                            </div>
+                                      
+									<!-- Tab content -->
+							            <div class="panel-body">
+										
+										
+										<div class="tab-pane fade active in"  id="p-nav-1" >
+											<!-- Single property page Agent Details -->
+											<div class="single-property sp-agent">
+												<!-- agent image -->
+												<!--img class="img-responsive img-thumbnail" src=" alt=""-->
+                                                <img class="img-responsive img-thumbnail" src="{% static 'app/img.png'%}" alt="" height="100" width="100">
+												<!-- Agent Company name / heading -->
+												<h4>{{usr.first_name}} {{usr.middle_name}}  {{usr.last_name}}</h4>
+												<!-- Agent name / heading -->
+												<h5>{{usr.sharezone.City}},{{usr.sharezone.State}}</h5>
+												<h5>Pick Up Arrangement: {{ usr.PickUpArrangement}}</h5>
+
+												<div class="clearfix"></div>
+												<!-- Agent details in table -->
+												<div class="table-responsive">
+													<table class="table table-bordered">
+														<tbody><tr>
+															<th>Address</th>
+															<td>{{usr.Address1}},{{usr.Address2}},{{usr.sharezone.City}},{{usr.sharezone.State}},{{usr.sharezone.Country}},{{usr.sharezone.ZipCode}}</td>
+														</tr>
+														<tr>
+															<th>Email</th>
+															<td>{{usr.email}}</td>
+														</tr>
+														<tr>
+															<th>Phone/Mobile</th>
+															<td>{{usr.PhoneNumber}}</td>
+														</tr>
+														<tr>
+															<th>Birthdate</th>
+															<td>{{usr.Dateofbirth}}</td>
+														</tr>
+														<tr>
+															<th>Registeration Date</th>
+															<td>{{usr.date_joined}}</td>
+														</tr>
+														<tr>
+															<th>Last Login</th>
+															<td>{{usr.last_login}}</td>
+														</tr>
+														<tr>
+															<th>Reminder Type</th>
+															<td>{{usr.RemainderType}}</td>
+														</tr>
+														<tr>
+															<th>Reminder Frequency</th>
+															<td>{{usr.RemainderFrequency}}</td>
+														</tr>
+														<tr>
+															<th>Lend Count</th>
+															<td>{{usr.LendCount}}</td>
+														</tr>
+														<tr>
+															<th>Borrow Count</th>
+															<td>{{usr.BorrowCount}}</td>
+														</tr>
+													</tbody></table>
+												</div>
+											</div>
+										</div>
+                                            </div>
+
+                                     </div>
+								
+								</div>
+							</div>
+		
+						</div>
+						
+					</div>
+									
+				</div>
+
+{% endblock %}

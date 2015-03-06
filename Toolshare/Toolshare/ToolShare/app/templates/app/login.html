@@ -1,0 +1,61 @@
+    {% extends "app/layout.html" %}
+
+    {% block content %}
+
+		    <div class="well login-reg">
+			    <!-- Login Form -->
+			    <div class="login-reg-form">
+				    <!-- Heading -->
+				    <h4>Log in</h4>
+				    <hr>
+                    <br />
+				    <!-- Form -->
+				    <!-- Form Horizontal -->
+                <form action="." method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_username" class="col-md-3 control-label">User name</label>
+                        <div class="col-md-9">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password" class="col-md-3 control-label">Password</label>
+                        <div class="col-md-9">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-2">
+                            <input type="hidden" name="next" value="/" />
+                            <input type="submit" value="Log in" class="btn btn-white" />
+                        </div>
+                        <div class="col-md-7">
+                    
+                            <p>Forgot Your Password? <a href="{% url 'password_change_form' %}"><span class="lblue">Reset!</span></a></p>
+                        </div>
+                    </div>
+                       
+        
+                    
+                    {% if form.errors %}
+                        <p class="validation-summary-errors">Please enter a correct user name and password.</p>
+                    {% endif %}
+                </form>
+  			    </div>
+		    </div>	
+
+    <br />
+    <br />
+
+
+
+    {% endblock %}
+
+
+    {% block scripts %}
+
+        {% load staticfiles %}
+    <script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+    {% endblock %}

@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Django Application</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <!-- ============================================================================  -->
+
+	<link href="{% static 'app/content/font-awesome.min.css' %}" rel="stylesheet">
+	<!-- Base style -->
+   <link rel="stylesheet" type="text/css" href="{% static 'app/content/style.css' %}" />	
+
+	
+    <link href="{% static 'app/content/dataTables.bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'app/content/sb-admin-2.css' %}" rel="stylesheet">
+    <link href="{% static 'app/content/real-estate.css' %}" rel="stylesheet">
+    <link href="{% static 'app/content/style-6.css' %}" rel="stylesheet">
+	<!-- jQuery -->
+	<script src="{% static 'app/scripts/jquery-1.11.1.min.js'%}"></script>
+	<!-- Placeholders JS -->
+    <script src="{% static 'app/scripts/placeholders.js'%}"></script>
+	<script src="{% static 'app/scripts/jquery.bulletin.js'%}"></script>
+    <script src="{% static 'app/scripts/sb-admin-2.js'%}"></script>
+    <script src="{% static 'app/scripts/jquery.dataTables.js'%}"></script>
+    <script src="{% static 'app/scripts/dataTables.bootstrap.js'%}"></script>
+    <script src="{% static 'app/scripts/metisMenu.js'%}"></script>
+    <script src="{% static 'app/scripts/metisMenu.min.js'%}"></script>
+
+    <script src="{% static 'app/scripts/jquery-ui.min.js'%}"></script>
+    <link href="{% static 'app/content/jquery-ui.css' %}" rel="stylesheet">
+
+
+	<!-- Respond JS for IE8 -->
+    <script src="{% static 'app/scripts/respond.min.js' %}"></script>
+	<!-- HTML5 Support for IE -->
+    <script src="{% static 'app/scripts/html5shiv.js' %}"></script>
+	<!-- Javascript for this page -->
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
+    		
+</head>
+
+<body>
+   		
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">ToolShare</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'home' %}">Home</a></li> 
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                </ul>
+                {% include 'app/loginpartial.html' %}
+            </div>
+        </div>
+    </div>
+    
+	<div class="ui-6" >
+		<div class="container">
+						<!-- UI content -->
+			<div class="block-content">
+							<!-- Notification menu -->
+                
+					<ul class="list-unstyled notif-menu">
+								<li class="dropdown">
+									<a data-toggle="dropdown" href="#">
+										<span class="badge badge-blue">  </span> Profile <b class="caret"></b>
+									</a>
+									 <ul class="dropdown-menu" role="menu" >
+                                         <li><a href="{% url 'usertable' %}">My Profile</a></li>
+										<li><a href="{% url 'profile' %}">Update Profile</a></li>
+										<li><a href="{% url 'preference' %}">Change Preferences</a></li>
+                                        <li><a href="{% url 'password_update_form' %}">Change Password</a></li>
+									</ul>
+								</li>	
+								<li class="dropdown">
+									<a data-toggle="dropdown" href="#">
+										<span class="badge badge-blue">  </span> Sheds <b class="caret"></b>
+									</a>
+									 <ul class="dropdown-menu" role="menu" >
+										<li><a href="{% url 'createShed' %}">Shed Creation</a></li>
+                                        <li><a href="{% url 'shedTable' %}">Sheds List</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a data-toggle="dropdown" href="#">
+										<span class="badge badge-blue">   </span> Tools <b class="caret"></b>
+ 									</a>
+									 <ul class="dropdown-menu" role="menu" >
+										<li><a href="{% url 'addtool' %}">Add Tool</a></li>
+                                        <li><a href="{% url 'toollist' %}">Tool List</a></li>
+                                        <li><a href="{% url 'mytools' %}">My Tools</a></li>
+									
+									</ul>
+								</li>
+                                <li class="dropdown">
+									<a data-toggle="dropdown" href="#">
+										<span class="badge badge-blue">   </span> Statistics <b class="caret"></b>
+									</a>
+									 <ul class="dropdown-menu" role="menu" >
+                                        <li><a href="{% url 'MostActiveTool' %}">Tools statistics</a></li>
+                                        <li><a href="{% url 'MostActiveUser' %}">Users statistics</a></li>
+									</ul>
+								</li>
+
+                                 <li class="dropdown">
+									<a data-toggle="dropdown" href="#">
+										<span class="badge badge-orange">{%ifnotequal requestscount "none"%} {{requestscount}} {%endifnotequal%}  </span> Requests <b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu" role="menu" >
+                                        <li><a href="{% url 'mynotification1' %}">My requests</a></li>
+                                        <li><a href="{% url 'mynotification2' %}">My tools Requests</a></li>
+                                        <li><a href="{% url 'mynotification3' %}">My shed requests</a></li>
+                                        <li><a href="{% url 'MyHistory' %}">Request History</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- UI one end -->
+    <div class="container body-content">
+       {% block content %} {%endblock%}
+    </div>
+        <br />
+        <footer>
+            <p>&copy; {{ year }} - My TooShare Application</p>
+        </footer>
+  
+</body>
+ 
+</html>
+{% block scripts %}<script type="text/javascript"></script> {%endblock%}

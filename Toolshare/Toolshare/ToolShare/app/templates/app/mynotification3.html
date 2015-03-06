@@ -1,0 +1,238 @@
+﻿{% extends "app/layout.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+<div class="rs-property">	
+
+				
+<br>
+<div class="row" id="mainwindow">
+	<div class="col-md-12 col-sm-12">
+
+					<div class="row">
+                         <div class="col-sm-12" style="padding:2pt;min-height:450px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                               <h4> My Shed Requests</h4> 
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                                <thead>
+                                                    <tr>
+                                                        <th  style="padding:2pt;width:150px">Shed </th>
+                                                        <th  style="padding:2pt;width:150px">Tool Name </th>
+                                                        <th  style="padding:2pt;width:150px">Borrower Name</th>
+                                                        <th width="120">Actions</th>
+                                                    </tr>
+                                           </thead>
+                                                <tbody>
+                                                  {%if requestlist2%} 
+                                                    {%for request in requestlist2%}
+                                                        {%if request.status == "Waiting for owner confirmation" %}
+                                                        <tr>
+                                                            <td style="padding:2pt"><a href="sheddetails/{{request.ToolId.shedID.id}}">{{request.ToolId.shedID.Name}}</a></td>
+                                                            <td style="padding:2pt"><a href="tooldetails/{{request.ToolId.id}}">{{request.ToolId.name}}</a></td>
+                                                            <td style="padding:2pt">{{request.BoorowerId.username}}</td>
+                                                            <td  style="padding:2pt;width:120px"><button type="button" class="btn btn-red  " id="cancelbutton" onclick="showdetails(2,{{request.id}},'delete','{{request.borrowerMessage}}','{{request.ownerMessage}}','{{request.Owner}}','{{request.status}}','Tool return confirmation','{{request.ToolId.name}}','{{request.ToolId.stuff_image}}')" style="width:100px; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px">details</button> </td>
+                                                        </tr>
+                                                        {%endif%} 
+                                                    {%endfor%}
+                                                 {%endif%} 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    <!-- /.table-responsive -->
+                    
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>								
+			</div>
+	    </div>
+
+<div class="row" id="ToolRequest" style="display:none">
+                            <div class="col-sm-12" style="padding:0px">
+                                <h4 style="text-align:right"> <button class="btn-link" style="color:steelblue;cursor:pointer;font-family:'Times New Roman'" onclick="backfunction()">Back</button></h4>
+                                <div class="panel panel-default">
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                    		    <div class="single-property sp-agent">
+												<!-- agent image -->
+												<!--img class="img-responsive img-thumbnail" src=" alt=""-->
+                                                <img id="imageid" class="img-responsive img-thumbnail" src="{% static 'app/img.png'%}" alt="" height="100" width="100">
+												<!-- Agent Company name / heading -->
+												<h4 id="tname">Tool name: </h4> 
+												<!-- Agent name / heading -->
+												<h5>Owner: <span id="receiver"></span></h5>
+												<h5>Borrower: <span id="sender"></span></h5>
+                                                
+                                                <hr />
+                                        <table class="table table-bordered br-style-3" style="border-color:white">
+                                           <tr>
+
+                                                <th style="border:1px;width:250px;"><p style="text-align:right">Request Type:</p></th>
+                                                <td  style="border:1px">
+                                                    <div class="badge" style="overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 5px;font-size:large;height:30px">
+                                                        <span id="requestType"></span>
+                                                    </div>
+                                                </td>
+                                               <td style="border:1px"></td>
+                                           
+                                            </tr>
+                                            <tr>
+                                                <th style="border:1px;width:250px;"><p style="text-align:right">Status:</p></th>
+                                                <td  style="border:1px">
+                                                    <div class="badge" style="overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 5px;font-size:large;height:30px">
+                                                        <span id="status"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <th style="border:0px;width:250px"><p id="messageownership10" style="text-align:right"></p></th>
+                                                <td  style="border:0px">
+                                                        <p id="messageownership11"class="badge" style=" text-align: justify;overflow-y:auto;max-height:150px;min-height:30px;padding-right:3px;border:1px;font-size:large;border-radius:5px"></p>
+                                                </td>
+                                            </tr>
+                                            <tr id="writemessage1">
+                                                <th style="border:0px;width:250px"><p id="messageownership20" style="text-align:right"></p></th>
+                                                <td  style="border:0px">
+                                                    <p id="messageownership21"class="badge" style=" text-align: justify;overflow-y:auto;max-height:150px;min-height:30px;padding-right:3px;border:1px;font-size:large;border-radius:5px;padding-left:15px"></p>
+                                                </td>
+                                            </tr>
+                                            <tr id="writemessage2">
+                                                <th style="border:0px;width:250px"><p style="text-align:right">Message:</p></th>
+                                                <td colspan="3" style="border:0px"><textarea  cols="80" rows="4"  id="textmessage"> </textarea></td>
+                                            </tr>
+
+                                            <tr id="toolrequest2" >
+                                                <td style="border:0px;width:250px"><p style="text-align:right"></p></td>
+                                                <td style="border:0px;width:50px">
+                                                    <table>
+                                                        <tr>
+                                                            <td style="border:0px">
+                                                                 <button type="button" class="btn btn-green" id="savebutton" onclick="save('delete')" style="width:100px; display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px;">Confirm</button>
+                                                            </td>
+                                                            <td style="border:0px">
+                                                                <button type="button" class="btn btn-red  " id="cancelbutton" onclick="function1('accept','I didnt receive the tool , please make sure that you  returned it')" style="width:100px;display: block; overflow: hidden; cursor: pointer;border: 2px solid #999999; border-radius: 10px">Reject</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                 </td>
+                                             </tr>
+                                                                                      
+
+                                        </table>
+
+                                    </div>	
+                                                    </div>
+                                  
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-12 -->
+                        </div>	
+						
+</div>
+</div>													
+
+{% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example2').dataTable();
+    });
+    var requestid = '';
+    var action = '';
+    var message1 = '';
+    var message2 = '';
+    function function0(var0,optionalmessage)
+    {
+        var messagetext = document.getElementById("textmessage").value.toString();
+        if (messagetext.trim() == '') {
+            message1 = optionalmessage;
+        }
+        else
+            message1 = messagetext;
+       
+        save(var0);
+    }
+
+    function function1(var0,optionalmessage)
+    {
+        var messagetext = document.getElementById("textmessage").value.toString();
+        if(messagetext.trim()=='')
+            message2=optionalmessage;
+        else
+            message2=messagetext;
+
+        save(var0);
+    }
+
+
+    function showdetails(var0,var1, var2, var3, var4,var5,var6,var7,toolname,toolimage)
+    {
+        requestid = var1;
+        action = var2;
+        message1 = var3;
+        message2 = var4;
+        document.getElementById("sender").textContent = "Me";
+        document.getElementById("receiver").textContent = var5;
+        document.getElementById("imageid").src = "../static/app/" + toolimage;
+        document.getElementById("tname").textContent = "Tool name: " + toolname;
+        document.getElementById("requestType").textContent = "Shed Coordinator return Approvment";
+        document.getElementById("mainwindow").style.display = 'none';
+        document.getElementById("ToolRequest").style.display ='';
+        document.getElementById("toolrequest2").style.display = 'none';
+        if (var0 == 2) {
+            document.getElementById("toolrequest2").style.display = '';
+
+            if (var6 == '')
+                document.getElementById("status").textContent = "waiting for Your Approvment";
+            else if (var6 == "Accepted")
+                document.getElementById("status").textContent = "You have already approved this request";
+            else if (var6 == "Rejected")
+                document.getElementById("status").textContent = "Rejected";
+            else if (var6 == "Waiting for owner confirmation")
+                document.getElementById("status").textContent = "waiting for your confirmation";
+
+            document.getElementById("messageownership10").textContent = "Borrower Message:";
+            document.getElementById("messageownership11").textContent = var3;
+            if (var4 != '') {
+                document.getElementById("messageownership20").textContent = "My Message:";
+                document.getElementById("messageownership21").textContent = var4;
+            }
+        }
+    }
+    function save(var1)
+    {
+        action=var1;
+        var postUrl = "/requestupdate/"+requestid;
+        data = {
+            id: requestid,
+            action: action,
+            mymessage1: message1,
+            mymessage2: message2
+        };
+        $.ajax({
+            url: postUrl,
+            type: "POST",
+            data: data,
+            success: function (){
+                alert('Your request has been successfully updated');
+                location.reload();
+            },
+            error: function (){
+                alert('Sorry!! some thing wrong in your request submission. please try again');
+            }
+        });
+        
+    }
+    function backfunction() {
+        document.getElementById("mainwindow").style.display = '';
+        document.getElementById("ToolRequest").style.display = 'none';
+    }
+   
+ </script>
+{%endblock%}
